@@ -18,6 +18,14 @@ test('a malformed room id shows the Link Invalid card, not an endless wait', asy
     await page.goto('/#room=not-a-valid-uuid');
 
     await expect(page.getByRole('heading', { name: 'Link Invalid' })).toBeVisible();
+    // The card is announced when it appears, as the red banner is (#706).
+    // Filtered by its words, because Next's route announcer is an alert too.
+    const card = page.getByRole('alert').filter({ hasText: 'Link Invalid' });
+    await expect(card).toBeVisible();
+    await expect(card).toContainText(
+        'This link is incomplete, already in use, or locked to the networks that first used it.',
+    );
+    await expect(card).not.toContainText('Back to Home');
     // The receiver handshake pipeline must never appear for a rejected link.
     await expect(page.getByText(/waiting for the sender/i)).toHaveCount(0);
     // The card tells the person to leave, so the footer must not also say

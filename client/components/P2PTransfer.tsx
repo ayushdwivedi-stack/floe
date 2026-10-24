@@ -1574,7 +1574,7 @@ export function P2PTransfer() {
                             <div className="h-16 w-16 rounded-full bg-red-500/10 flex items-center justify-center mb-2">
                                 <Link2Off className="h-8 w-8 text-red-500" />
                             </div>
-                            <div className="space-y-1">
+                            <div role="alert" className="space-y-1">
                                 <h3 className="text-xl font-semibold text-white">
                                     Link Invalid
                                 </h3>
